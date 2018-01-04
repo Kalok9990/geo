@@ -48,4 +48,27 @@ describe 'Device UI' do
       expect(last_response.body).to include("Cosy display, R1")
     end
   end
+
+  context "should be able to post new devices" do
+
+    it "read the inputs and post into the database" do
+      post "/new"
+      expect(last_response.body).to include("New Device")
+    end
+
+    it "redirects back to homepage" do
+      post "/new"
+      follow_redirect!
+      expect(last_request.path).to eq('/')
+    end
+  end
+
+  context "should be able to update information on the devices" do
+
+    it "reads new information and updates the database" do
+      put "/:name/edit", :name => "iphone"
+      expect(last_response.body).to include("Edit device")
+    end
+  end
+
 end
