@@ -26,7 +26,8 @@ class DeviceController < Sinatra::Base
   get "/:name" do
     name = params[:name]
     i = Device.new
-    @selected = i.find(name)
-    erb :"show"
+    selected = i.find(name)
+    content_type :json
+    selected.to_json
   end
 end
